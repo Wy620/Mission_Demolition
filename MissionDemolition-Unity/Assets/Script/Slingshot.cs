@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class Slingshot : MonoBehaviour
 {
-    // fields set in the Unity Inspector pane
+    /*******viralbe********/
+    [Header("Set in Inspector")]
     public GameObject prefabProjectile;
-    public float velocityMult = 4f;
-    public bool _____________________________;
-    // fields set dynamically
+    public float velocityMult = 8f;
+
+    [Header("Set Dynamicallly")]
+    // fields set in the Unity Inspector pane
     public GameObject launchPoint;
     public Vector3 launchPos;
     public GameObject projectile;
     public bool aimingMode;
+    // fields set dynamically
+    public Rigidbody projectildRB;
+    
+    
+   
 
 
     void Awake()
@@ -23,18 +30,18 @@ public class Slingshot : MonoBehaviour
         launchPos = launchPointTrans.position;
     }
 
-    void OnMouseEnter()
+    private void OnMouseEnter()
     {
         //print("Slingshot:OnMouseEnter()");
         launchPoint.SetActive(true);
     }
-    void OnMouseExit()
+    private void OnMouseExit()
     {
         //print("Slingshot:OnMouseExit()");
         launchPoint.SetActive(false);
     }
 
-    void OnMouseDown()
+    private void OnMouseDown()
     {
         // The player has pressed the mouse button while over Slingshot
         aimingMode = true;
@@ -42,18 +49,22 @@ public class Slingshot : MonoBehaviour
         projectile = Instantiate(prefabProjectile) as GameObject;
         // Start it at the launchPoint
         projectile.transform.position = launchPos;
+        Debug.Log(launchPos);
+        projectildRB = projectile.GetComponent<Rigidbody>();
+        projectildRB.isKinematic = true;
+
         // Set it to isKinematic for now
-        projectile.rigidbody.isKinematic = true;
+        projectile.GetComponent<Rigidbody>().isKinematic = true;
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         // If Slingshot is not in aimingMode, don't run this code
         if (!aimingMode) return;
@@ -68,7 +79,7 @@ public class Slingshot : MonoBehaviour
         float maxMagnitude = this.GetComponent<SphereCollider>().radius;
         if (mouseDelta.magnitude > maxMagnitude)
         {
-            mouseDelta.Normalize();
+            mouseDelta.Normalize(); //set the vector to the same direction, but length is 1.0
             mouseDelta *= maxMagnitude;
         }
         // Move the projectile to this new position
@@ -78,9 +89,8 @@ public class Slingshot : MonoBehaviour
         {
             // The mouse has been released
             aimingMode = false;
-            projectile.rigidbody.isKinematic = false;
-            projectile.rigidbody.velocity = -mouseDelta * velocityMult;
-            FollowCam.S.poi = projectile;
+            projectildRB.isKinematic = false;
+            projectildRB.velocity = -mouseDelta * velocityMult;
             projectile = null;
         }
     }
