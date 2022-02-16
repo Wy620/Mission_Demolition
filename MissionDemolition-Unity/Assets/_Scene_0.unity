@@ -228,6 +228,7 @@ GameObject:
   - component: {fileID: 333163575}
   - component: {fileID: 333163578}
   - component: {fileID: 333163577}
+  - component: {fileID: 333163579}
   m_Layer: 0
   m_Name: Cloud
   m_TagString: Untagged
@@ -247,7 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e6c59ded792cda40a5a7ba776434555, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cloudSphere: {fileID: 0}
+  CloudSphere: {fileID: 0}
   numberSpheresMin: 6
   numberSpheresMax: 10
   sphereScaleRangeX: {x: 4, y: 8}
@@ -281,7 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e6c59ded792cda40a5a7ba776434555, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cloudSphere: {fileID: 0}
+  CloudSphere: {fileID: 0}
   numberSpheresMin: 6
   numberSpheresMax: 10
   sphereScaleRangeX: {x: 4, y: 8}
@@ -301,7 +302,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e6c59ded792cda40a5a7ba776434555, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cloudSphere: {fileID: 0}
+  CloudSphere: {fileID: 0}
+  numberSpheresMin: 6
+  numberSpheresMax: 10
+  sphereScaleRangeX: {x: 4, y: 8}
+  sphereScaleRangeY: {x: 3, y: 4}
+  sphereScaleRangeZ: {x: 2, y: 4}
+  sphereOffsetScale: {x: 5, y: 2, z: 1}
+  scaleYMin: 2
+--- !u!114 &333163579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 333163574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e6c59ded792cda40a5a7ba776434555, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CloudSphere: {fileID: 0}
   numberSpheresMin: 6
   numberSpheresMax: 10
   sphereScaleRangeX: {x: 4, y: 8}

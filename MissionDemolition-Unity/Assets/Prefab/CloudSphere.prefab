@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 891047884594722824}
   - component: {fileID: 3148676162999742201}
   - component: {fileID: 5868397729774026618}
+  - component: {fileID: -6509066875118936315}
   m_Layer: 0
   m_Name: CloudSphere
   m_TagString: Untagged
@@ -95,3 +96,23 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-6509066875118936315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 547612349711062354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e6c59ded792cda40a5a7ba776434555, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CloudSphere: {fileID: 0}
+  numberSpheresMin: 6
+  numberSpheresMax: 10
+  sphereScaleRangeX: {x: 4, y: 8}
+  sphereScaleRangeY: {x: 3, y: 4}
+  sphereScaleRangeZ: {x: 2, y: 4}
+  sphereOffsetScale: {x: 5, y: 2, z: 1}
+  scaleYMin: 2

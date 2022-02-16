@@ -10,7 +10,7 @@ public class Cloud : MonoBehaviour
 {
     [Header("Set in inespector")]
     
-    public GameObject cloudSphere;
+    public GameObject CloudSphere;
     public int numberSpheresMin = 6;
     public int numberSpheresMax = 10;
     public Vector2 sphereScaleRangeX = new Vector2(4, 8);
@@ -30,7 +30,7 @@ public class Cloud : MonoBehaviour
 
         for (int i = 0; i < num; i++)
         {
-            GameObject sp = Instantiate<GameObject>(cloudSphere);
+            GameObject sp = Instantiate<GameObject>(CloudSphere);
             spheres.Add(sp);
 
             Transform spTrans = sp.transform;
