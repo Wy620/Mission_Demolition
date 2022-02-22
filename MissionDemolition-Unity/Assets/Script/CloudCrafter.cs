@@ -1,54 +1,41 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CloudCrafter : MonoBehaviour
 {
-    // fields set in the Unity Inspector pane
-    public int numClouds = 40; // The # of clouds to make
-    public GameObject[] cloudPrefabs; // The prefabs for the clouds
-    public Vector3 cloudPosMin; // Min position of each cloud
-    public Vector3 cloudPosMax; // Max position of each cloud
+    [Header("Set in Inspector")]
+    public int numClouds = 40; // the number of clouds to make
+    public GameObject cloudPrefab; // The prefab for the clouds
+    public Vector3 cloudPosMin = new Vector3(-50, -5, 10);
+    public Vector3 cloudPosMax = new Vector3(150, 100, 10);
     public float cloudScaleMin = 1; // Min scale of each cloud
-    public float cloudScaleMax = 5; // Max scale of each cloud
-    public float cloudSpeedMult = 0.5f; // Adjusts speed of clouds
+    public float cloudScaleMax = 3; // Max scale of each cloud
+    public float cloudSpeedMult = 0.5f; // Adjust speed of clouds
 
-    // fields set dynamically
-    public GameObject[] cloudInstances;
+    private GameObject[] cloudInstances;
 
     void Awake()
     {
-        // Make an array large enough to hold all the Cloud_ instances
-        cloudInstances = new GameObject[numClouds];
-        // Find the CloudAnchor parent GameObject
-        GameObject anchor = GameObject.Find("CloudAnchor");
-        // Iterate through and make Cloud_s
-        GameObject cloud;
+        cloudInstances = new GameObject[numClouds]; // Make an array large enough to
+                                                    // hold all the Cloud_instances
+        GameObject anchor = GameObject.Find("CloudAnchor"); // Find the CloudAnchor parent GameObject
+        GameObject cloud; // Iterate through and make Cloud_s
         for (int i = 0; i < numClouds; i++)
         {
-            // Pick an int between 0 and cloudPrefabs.Length-1
-            // Random.Range will not ever pick as high as the top number
-            int prefabNum = Random.Range(0, cloudPrefabs.Length);
-            // Make an instance
-            cloud = Instantiate(cloudPrefabs[prefabNum]) as GameObject;
-            // Position cloud
-            Vector3 cPos = Vector3.zero;
+            cloud = Instantiate<GameObject>(cloudPrefab); // Make an instance of cloudPrefab
+            Vector3 cPos = Vector3.zero; // Position cloud
             cPos.x = Random.Range(cloudPosMin.x, cloudPosMax.x);
             cPos.y = Random.Range(cloudPosMin.y, cloudPosMax.y);
-            // Scale cloud
-            float scaleU = Random.value;
+
+            float scaleU = Random.value; // scale cloud
             float scaleVal = Mathf.Lerp(cloudScaleMin, cloudScaleMax, scaleU);
-            // Smaller clouds (with smaller scaleU) should be nearer the ground)
-            cPos.y = Mathf.Lerp(cloudPosMin.y, cPos.y, scaleU);
-            // Smaller clouds should be further away
-            cPos.z = 100 - 90 * scaleU;
-            // Apply these transforms to the cloud
-            cloud.transform.position = cPos;
+            cPos.y = Mathf.Lerp(cloudPosMin.y, cPos.y, scaleU); // smaller cloud
+            cPos.z = 100 - 90 * scaleU; // smaller clouds should be further away
+            cloud.transform.position = cPos; // apply these transforms to the cloud
             cloud.transform.localScale = Vector3.one * scaleVal;
-            // Make cloud a child of the anchor
-            cloud.transform.parent = anchor.transform;
-            // Add the cloud to cloudInstances
-            cloudInstances[i] = cloud;
+            cloud.transform.SetParent(anchor.transform); // make cloud a child of the anchor
+            cloudInstances[i] = cloud; // Add the cloud to cloudInstances
+
         }
     }
 
@@ -61,23 +48,17 @@ public class CloudCrafter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Iterate over each cloud that was created
         foreach (GameObject cloud in cloudInstances)
         {
-            // Get the cloud scale and position
-            float scaleVal = cloud.transform.localScale.x;
+            float scaleVal = cloud.transform.localScale.x; // get the cloud scale and position
             Vector3 cPos = cloud.transform.position;
-            // Move larger clouds faster
-            cPos.x -= scaleVal * Time.deltaTime * cloudSpeedMult;
-            // If a cloud has moved too far to the left...
+            cPos.x -= scaleVal * Time.deltaTime * cloudSpeedMult; // move larger clouds faster
             if (cPos.x <= cloudPosMin.x)
             {
-                // Move it to the far right
-                cPos.x = cloudPosMax.x;
+                cPos.x = cloudPosMax.x; // move it to the far right
+            } // end if
+            cloud.transform.position = cPos; // Apply the new position to cloud
 
-            }
-            // Apply the new position to cloud
-            cloud.transform.position = cPos;
-        }
+        } // end foreach
     }
 }
